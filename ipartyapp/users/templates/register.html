@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Registration</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .card {
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1 class="h3 mb-3 font-weight-normal text-center">User Registration</h1>
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="id_username">Username:</label>
+                    <input type="text" class="form-control" id="id_username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="id_email">Email:</label>
+                    <input type="email" class="form-control" id="id_email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="id_password1">Password:</label>
+                    <input type="password" class="form-control" id="id_password1" name="password1" required>
+                </div>
+                <div class="form-group">
+                    <label for="id_password2">Confirm Password:</label>
+                    <input type="password" class="form-control" id="id_password2" name="password2" required>
+                </div>
+                <div class="form-group">
+                    <label for="id_phone_number">Phone Number:</label>
+                    <input type="text" class="form-control" id="id_phone_number" name="phone_number" required>
+                </div>
+                <div class="form-group">
+                    <label for="id_user_type">User Type:</label>
+                    <select class="form-control" name="user_type" id="id_user_type">
+                        <option value="organizer">Organizer</option>
+                        <option value="attendee">Attendee</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="id_campus">Campus:</label>
+                    <select class="form-control" name="campus" id="id_campus">
+                        <option value="Campus A">KU</option>
+                        <option value="Campus B">JKUAT</option>
+                        <option value="Campus C">UON</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary btn-block" type="submit">Register</button>
+                <button class="btn btn-secondary btn-block" type="reset">Clear</button>
+            </form>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#id_password1').focus(function(){
+                $(this).tooltip({
+                    title: "Password must be at least 8 characters long and contain both letters and numbers.",
+                    placement: "right",
+                    trigger: "focus"
+                }).tooltip('show');
+            });
+
+            $('#id_username').focus(function(){
+                $(this).tooltip({
+                    title: "Username should be unique and between 4-30 characters.",
+                    placement: "right",
+                    trigger: "focus"
+                }).tooltip('show');
+            });
+        });
+    </script>
+</body>
+</html>
