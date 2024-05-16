@@ -1,0 +1,18 @@
+<!-- event_detail.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="card">
+    <div class="card-body">
+      <h1 class="card-title">{{ event.name }}</h1>
+      <p class="card-text">Date: {{ event.date }}</p>
+      <p class="card-text">Time: {{ event.time }}</p>
+      <p class="card-text">Location: {{ event.location }}</p>
+      <p class="card-text">Max Attendees: {{ event.max_attendees }}</p>
+      <p class="card-text">Contribution Amount: {{ event.contribution_amount }}</p>
+      {% if event.campus %}
+        <p class="card-text">Campus: {{ event.campus }}</p>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
