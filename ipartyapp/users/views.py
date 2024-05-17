@@ -1,52 +1,39 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.decorators import login_required
-from django.contrib import messages
-from .forms import CustomAuthenticationForm, CustomUserCreationForm
+from .models import User
+from .forms import UserForm
 
-def register_user(request):
-    """user registration"""
+def user_list(request):
+    users = User.objects.all()
+    return render(request, 'user_list.html', {'users': users})
+
+def user_detail(request, pk):
+    user = User.objects.get(pk=pk)
+    return render(request, 'user_detail.html', {'user': user})
+
+def user_create(request):
     if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST)
+        form = UserForm(request.POST)
         if form.is_valid():
-            user = form.save(commit=False)
-            user.campus = form.cleaned_data['campus']
-            user.phone_number = form.cleaned_data['phone_number']
-            user_type = form.cleaned_data['user_type']
-            if user_type == 'organizer':
-                user.is_organizer = True
-            else:
-                user.is_attendee = True
-            user.save()
-            login(request, user)
-            return redirect('profile')
-        else:
-            messages.error(request, 'Form submission is invalid.')
+            form.save()
+            return redirect('user_list')
     else:
-        form = CustomUserCreationForm()
-    return render(request, 'register.html', {'form': form})
+        form = UserForm()
+    return render(request, 'user_form.html', {'form': form})
 
-@login_required
-def profile(request):
-    user = request.user
-    return render(request, 'profile.html', {'user': user})
-
-def user_login(request):
+def user_update(request, pk):
+    user = User.objects.get(pk=pk)
     if request.method == 'POST':
-        form = CustomAuthenticationForm(data=request.POST)
+        form = UserForm(request.POST, instance=user)
         if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return redirect('profile')
-        messages.error(request, 'Invalid username or password.')
+            form.save()
+            return redirect('user_list')
     else:
-        form = CustomAuthenticationForm()
-    return render(request, 'login.html', {'form': form})
+        form = UserForm(instance=user)
+    return render(request, 'user_form.html', {'form': form})
 
-@login_required
-def user_logout(request):
-    logout(request)
-    return redirect('user_login')
+def user_delete(request, pk):
+    user = User.objects.get(pk=pk)
+    if request.method == 'POST':
+        user.delete()
+        return redirect('user_list')
+    return render(request, 'user_confirm_delete.html', {'user': user})

@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-y6-72(^km$%jb0&!vhh+ayhe7kvnk5cx5)0m2f_2a@^%mer(-s'
+SECRET_KEY = 'django-insecure-u0b_b!sdw=qkby6md-ko6(ug5e6n###ceb=mc8)^84^37$!^m*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,9 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'users',
-    'events',
-    'bookings',
+    'campus',
+    'event',
+    'transaction',
+    'user',
+    'booking',
 ]
 
 MIDDLEWARE = [
@@ -124,8 +126,3 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
-LOGIN_URL = '/login/'  # URL to the login view
-LOGIN_REDIRECT_URL = '/profile/'  # URL to redirect to after a successful login
-LOGOUT_REDIRECT_URL = '/login/'  # URL to redirect to after logging out
