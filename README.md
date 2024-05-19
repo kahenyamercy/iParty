@@ -131,7 +131,19 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 For any inquiries or support, please reach out to us at:
 - Email: support@ipartyapp.com
-- WhatsApp: +1234567890
+
+
+## Authors
+
+- **wamae-ndiritu**
+    - Email: wamaejoseph392@gmail.com
+    - Github: [wamae-ndiritu](https://github.com/wamae-ndiritu)
+    - Twitter: [wamae-ndiritu](https://twitter.com/wamae-ndiritu)
+
+- **kahenyamercy**
+    - Email: kahenyamercy5@gmail.com
+    - Github: [kahenyamercy](https://github.com/kahenyamercy)
+    - Twitter: [kahenyamercy](https://twitter.com/kahenyamercy)
 
 ---
 
