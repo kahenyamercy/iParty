@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ event.title }}</title>
+</head>
+<body>
+    <h1>{{ event.title }}</h1>
+    <p>{{ event.description }}</p>
+    <p>Date: {{ event.date }}</p>
+    <p>Location: {{ event.location }}</p>
+    <p>Created by: {{ event.created_by.username }}</p>
+    <p>Created at: {{ event.created_at }}</p>
+    {% if event.poster %}
+    <p><img src="{{ event.poster.url }}" alt="{{ event.title }}"></p>
+    {% endif %}
+    <a href="{% url 'event_update' event.pk %}">Edit</a>
+    <form method="post" action="{% url 'event_delete' event.pk %}">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+    </form>
+    <form method="post" action="{% url 'register_for_event' event.pk %}">
+        {% csrf_token %}
+        <button type="submit">Register for Event</button>
+    </form>
+    <a href="{% url 'event_list' %}">Back to Event List</a>
+</body>
+</html>
