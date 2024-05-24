@@ -1,102 +1,66 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from .forms import CustomUserForm
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from .models import CustomUser
+from .forms import CustomUserCreationForm, CustomUserUpdateForm
 
+@login_required
 def user_list(request):
-    """
-    View to display a list of all users (if permitted).
+    users = CustomUser.objects.all()
+    return render(request, 'user_list.html', {'users': users})
 
-    Requires appropriate permission checks for security.
-    """
-    users = CustomUser.objects.all()  # Fetch all users from your custom model
-    context = {'users': users}
-    return render(request, 'user_list.html', context)
-
+@login_required
 def user_detail(request, pk):
-    """
-    View to display details of a specific user.
-
-    Requires appropriate permission checks for security.
-    """
-    user = CustomUser.objects.get(pk=pk)  # Fetch user by primary key
-    context = {'user': user}
-    return render(request, 'user_detail.html', context)
+    user = CustomUser.objects.get(pk=pk)
+    return render(request, 'user_detail.html', {'user': user})
 
 def user_create(request):
-    """
-    View to create a new user.
-
-    Handles form submission and user creation logic.
-    """
     if request.method == 'POST':
-        form = CustomUserForm(request.POST)  # Create form instance with POST data
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            user = form.save()  # Save the new user
-            # Additional processing after user creation (e.g., send welcome email)
-            return redirect('user_list')  # Redirect to user list after successful creation
+            form.save()
+            messages.success(request, 'User created successfully!')
+            return redirect('dashboard')
     else:
-        form = CustomUserForm()  # Create empty form instance for GET requests
-    context = {'form': form}
-    return render(request, 'user_create.html', context)
+        form = CustomUserCreationForm()
+    return render(request, 'user_create.html', {'form': form})
 
+@login_required
 def user_update(request, pk):
-    """
-    View to update an existing user.
-
-    Handles form submission and user update logic.
-    Requires appropriate permission checks for security.
-    """
-    user = CustomUser.objects.get(pk=pk)  # Fetch user by primary key
+    user = CustomUser.objects.get(pk=pk)
     if request.method == 'POST':
-        form = CustomUserForm(request.POST, instance=user)  # Pre-populate the form
+        form = CustomUserUpdateForm(request.POST, instance=user)
         if form.is_valid():
-            form.save()  # Save the updated user
-            return redirect('user_detail', pk=user.pk)  # Redirect to updated user detail
+            form.save()
+            messages.success(request, 'User updated successfully!')
+            return redirect('user_detail', pk=pk)
     else:
-        form = CustomUserForm(instance=user)  # Create form instance pre-populated with user data
-    context = {'form': form}
-    return render(request, 'user_update.html', context)
+        form = CustomUserUpdateForm(instance=user)
+    return render(request, 'user_update.html', {'form': form})
 
+@login_required
 def user_delete(request, pk):
-    """
-    View to delete an existing user.
-
-    Requires appropriate permission checks and confirmation for security.
-    """
-    user = CustomUser.objects.get(pk=pk)  # Fetch user by primary key
+    user = CustomUser.objects.get(pk=pk)
     if request.method == 'POST':
-        user.delete()  # Delete the user
-        return redirect('user_list')  # Redirect to user list after deletion
-    context = {'user': user}
-    return render(request, 'user_delete.html', context)
+        user.delete()
+        messages.success(request, 'User deleted successfully!')
+        return redirect('home')
+    return render(request, 'user_delete.html', {'user': user})
 
 def user_login(request):
-    """
-    View to handle user login.
-
-    Redirects to appropriate page after login or displays error message.
-    """
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            login(request, user)  # Log the user in
-            # Redirect to appropriate page after successful login (e.g., user profile)
-            return redirect('user_profile')
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user:
+            login(request, user)
+            return redirect('dashboard')  # Redirect to dashboard or profile page after login
         else:
-            # Display error message for invalid credentials
-            context = {'error': 'Invalid username or password'}
-            return render(request, 'user_login.html', context)
-    context = {}
-    return render(request, 'user_login.html', context)
+            messages.error(request, 'Invalid username or password!')
+    return render(request, 'user_login.html')
 
+@login_required
 def user_logout(request):
-    """
-    View to handle user logout.
-
-    Redirects to appropriate page after logout.
-    """
-    logout(request)  # Log the user out
-    return redirect('login')  # Redirect to login page after logout
+    logout(request)
+    return redirect('home')  # Redirect to home page after logout
