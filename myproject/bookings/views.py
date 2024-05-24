@@ -1,10 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Booking
 from events.models import Event
-from django.contrib import messages  # Import messages
+from django.contrib import messages
+from django.db.models import F
 
 def booking_list(request):
-    bookings = Booking.objects.all().order_by('-created_at')  # Order by recent first
+    bookings = Booking.objects.annotate(
+        event_created_at=F('event_creted_at')
+    ).order_by('-event_created_at')
     context = {'bookings': bookings}
     return render(request, 'booking_list.html', context)
 

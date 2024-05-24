@@ -1,0 +1,16 @@
+<!-- booking_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Booking List</title>
+</head>
+<body>
+    <h1>Booking List</h1>
+    <ul>
+        {% for booking in bookings %}
+        <li>{{ booking.event.title }} - {{ booking.event.created_at }} - {{ booking.user.username }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

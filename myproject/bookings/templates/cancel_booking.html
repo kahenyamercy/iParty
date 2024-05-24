@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cancel Booking</title>
+</head>
+<body>
+    <h1>Cancel Booking</h1>
+    <p>Are you sure you want to cancel your booking for {{ booking.event }}?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Cancel Booking</button>
+    </form>
+</body>
+</html>

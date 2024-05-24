@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Event</title>
+</head>
+<body>
+    <h1>Book Event - {{ event }}</h1>
+    {% if messages %}
+        {% for message in messages %}
+            <div>{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Book Event</button>
+    </form>
+</body>
+</html>
