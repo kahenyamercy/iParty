@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Campus List</title>
+</head>
+<body>
+    <h1>Campus List</h1>
+    <ul>
+        {% for campus in campuses %}
+            <li>
+                <a href="{% url 'campus_detail' campus.pk %}">{{ campus.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'campus_create' %}">Add New Campus</a>
+</body>
+</html>

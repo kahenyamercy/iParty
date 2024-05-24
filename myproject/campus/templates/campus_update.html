@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Campus</title>
+</head>
+<body>
+    <h1>Update Campus</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+    <a href="{% url 'campus_detail' campus.pk %}">Cancel</a>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Campus Detail</title>
+</head>
+<body>
+    <h1>{{ campus.name }}</h1>
+    <p>{{ campus.description }}</p>
+    <a href="{% url 'campus_update' campus.pk %}">Edit</a>
+    <form method="post" action="{% url 'campus_delete' campus.pk %}">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+    </form>
+    <a href="{% url 'campus_list' %}">Back to Campus List</a>
+</body>
+</html>

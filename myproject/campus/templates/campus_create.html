@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Campus</title>
+</head>
+<body>
+    <h1>Create Campus</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+    <a href="{% url 'campus_list' %}">Back to Campus List</a>
+</body>
+</html>
