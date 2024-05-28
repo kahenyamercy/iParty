@@ -20,11 +20,29 @@ def user_create(request):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'User created successfully!')
-            return redirect('dashboard')
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user:
+                login(request, user)
+                messages.success(request, 'User created successfully!')
+                return redirect('dashboard')
     else:
         form = CustomUserCreationForm()
     return render(request, 'register.html', {'form': form})
+
+
+def user_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user:
+            login(request, user)
+            return redirect('dashboard')
+        else:
+            messages.error(request, 'Invalid username or password!')
+    return render(request, 'login.html')
 
 @login_required
 def user_update(request, pk):
@@ -47,18 +65,6 @@ def user_delete(request, pk):
         messages.success(request, 'User deleted successfully!')
         return redirect('home')
     return render(request, 'user_delete.html', {'user': user})
-
-def user_login(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
-        if user:
-            login(request, user)
-            return redirect('dashboard')  # Redirect to dashboard or profile page after login
-        else:
-            messages.error(request, 'Invalid username or password!')
-    return render(request, 'user_login.html')
 
 @login_required
 def user_logout(request):
