@@ -6,9 +6,9 @@ class CustomUserCreationForm(forms.ModelForm):
 
     class Meta:
         model = CustomUser
-        fields = ['username', 'email', 'password', 'campus', 'phone_number', 'events']
+        fields = ['username', 'email', 'password', 'phone_number']
 
 class CustomUserUpdateForm(forms.ModelForm):
     class Meta:
         model = CustomUser
-        fields = ['username', 'email', 'campus', 'phone_number', 'events']
+        fields = ['username', 'email', 'phone_number']

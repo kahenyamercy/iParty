@@ -24,7 +24,7 @@ def user_create(request):
             return redirect('dashboard')
     else:
         form = CustomUserCreationForm()
-    return render(request, 'user_create.html', {'form': form})
+    return render(request, 'register.html', {'form': form})
 
 @login_required
 def user_update(request, pk):
