@@ -6,9 +6,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}Kampus iParty{% endblock %}</title>
   <script src="https://cdn.tailwindcss.com"></script>
-   <script src="https://kit.fontawesome.com/7668282ff5.js" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/7668282ff5.js" crossorigin="anonymous"></script>
+  <style>
+    /* Spinner styles */
+    .spinner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .spinner.hidden {
+      display: none;
+    }
+  </style>
 </head>
 <body class="bg-gray-100">
+
+  <!-- Spinner -->
+  <div id="spinner" class="spinner">
+    <div class="text-center">
+      <i class="fas fa-cocktail fa-3x fa-spin text-blue-600"></i>
+      <p class="mt-2 text-blue-600 font-bold">Loading iParty...</p>
+    </div>
+  </div>
 
   <!-- Main Navigation -->
   <header class="bg-blue-600 text-white py-4">
@@ -36,6 +63,13 @@
       <p>&copy; 2024 Kampus iParty. All rights reserved.</p>
     </div>
   </footer>
+
+  <script>
+    // Hide spinner once the page is fully loaded
+    window.addEventListener('load', function () {
+      document.getElementById('spinner').classList.add('hidden');
+    });
+  </script>
 
 </body>
 </html>
