@@ -67,9 +67,9 @@ Event Details - Kampus iParty
             </thead>
             <tbody>
                 <tr>
-                     <td class="text-left p-2 border border-gray-300">KES 2000</td>
-                     <td class="text-left p-2 border border-gray-300">20 <span class="text-xs text-gray-600">attendees</span></td>
-                     <td class="text-left p-2 border border-gray-300">KES 100</td>
+                     <td class="text-left p-2 border border-gray-300">KES {{event.total_budget_amount}}</td>
+                     <td class="text-left p-2 border border-gray-300">{{event.slots}} <span class="text-xs text-gray-600">attendees</span></td>
+                     <td class="text-left p-2 border border-gray-300">KES {{charge_per_slot}}</td>
                 </tr>
             </tbody>
         </table>
@@ -81,7 +81,7 @@ Event Details - Kampus iParty
 <!-- Booking Section -->
 <div class="w-2/5 bg-white p-6 rounded shadow-md relative">
     <h3 class="text-2xl font-bold mb-2">Book Your Slot</h3>
-    <p class="text-gray-600 text-md">Contribute <span class="text-xl font-semibold text-blue-600">KES 100</span> to book your slot at the <span class="text-xl font-semibold text-blue-600">{{event.title}}.</span> You can do so by entering your mobile money phone number and click Pay. An M-pesa STK prompt will be pushed to your phone requesting to authorze the transaction.</p>
+    <p class="text-gray-600 text-md">Contribute <span class="text-xl font-semibold text-blue-600">KES {{charge_per_slot}}</span> to book your slot at the <span class="text-xl font-semibold text-blue-600">{{event.title}}.</span> You can do so by entering your mobile money phone number and click Pay. An M-pesa STK prompt will be pushed to your phone requesting to authorze the transaction.</p>
   <p class="w-max bg-indigo-100 px-2 rounded text-blue-600 py-1 my-0 absolute top-1 right-1">Remaining Slots: 2</p>
   <form method="post" action="">
     {% csrf_token %}

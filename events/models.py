@@ -11,6 +11,21 @@ class Event(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     poster = models.ImageField(upload_to='event_posters/', blank=True)
+    slots = models.IntegerField(default=1)
+    budget_amount = models.FloatField(default=0.0)
+    charges = models.FloatField(default=0.0, editable=False)
+    total_budget_amount = models.FloatField(default=0.0)
+
+    def save(self, *args, **kwargs):
+        if self.slots > 0:
+            self.charges = 0.1 * self.budget_amount
+            self.total_budget_amount = self.budget_amount + self.charges
+        else:
+            self.charges = 0.0
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.title
 
     
     
