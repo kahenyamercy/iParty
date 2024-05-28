@@ -1,15 +1,18 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from .models import Booking
 from events.models import Event
 from django.contrib import messages
 from django.db.models import F
 
+@login_required(login_url='/users/login')
 def booking_list(request):
-    bookings = Booking.objects.annotate(
-        event_created_at=F('event_creted_at')
-    ).order_by('-event_created_at')
+    bookings = Booking.objects.annotate(event_created_at=F('created_at')
+    ).order_by('-created_at')
+    for booking in bookings:
+        print(booking)
     context = {'bookings': bookings}
-    return render(request, 'booking_list.html', context)
+    return render(request, 'user_bookings.html', context)
 
 def event_bookings(request, pk):
     event = get_object_or_404(Event, pk=pk)

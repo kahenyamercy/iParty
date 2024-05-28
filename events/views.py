@@ -8,7 +8,7 @@ from django.contrib import messages
 def event_list(request):
     events = Event.objects.all().order_by('-created_at')  # Order by recent first
     context = {'events': events}
-    return render(request, 'event_list.html', context)
+    return render(request, 'user_events.html', context)
 
 @login_required
 def event_create(request):

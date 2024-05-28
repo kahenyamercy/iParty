@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}
+User Events - Kampus iParty
+{% endblock %}
+
+{% block content %}
+<section>
+  <h3 class="text-2xl font-bold mb-4">Organized Events</h3>
+   <div>
+    <a href="{% url 'events:user_events' %}" class="bg-blue-100 p-1 text-blue-600 text-lg border">Organized Events</a>
+    <a href="{% url 'bookings:user_bookings' %}" class="bg-orange-100 p-1 text-orange-600 text-lg border">Booked Events</a>
+  </div>
+</section>
+{% endblock %}

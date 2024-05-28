@@ -16,7 +16,7 @@
       <nav>
         <ul class="flex space-x-4">
           <li><a href="{% url 'app:user_dashboard' %}" class="hover:underline">Dashboard</a></li>
-          <li><a href="#" class="hover:underline">My Events</a></li>
+          <li><a href="{% url 'events:user_events' %}" class="hover:underline">My Events</a></li>
           <li><a href="#" class="hover:underline">Profile</a></li>
           <li><a href="{% url 'users:user_logout' %}" class="hover:underline">Logout</a></li>
         </ul>
