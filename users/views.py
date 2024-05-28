@@ -26,7 +26,7 @@ def user_create(request):
             if user:
                 login(request, user)
                 messages.success(request, 'User created successfully!')
-                return redirect('dashboard')
+                return redirect('app:user_dashboard')
     else:
         form = CustomUserCreationForm()
     return render(request, 'register.html', {'form': form})
@@ -39,10 +39,15 @@ def user_login(request):
         user = authenticate(request, username=username, password=password)
         if user:
             login(request, user)
-            return redirect('dashboard')
+            return redirect('app:user_dashboard')
         else:
             messages.error(request, 'Invalid username or password!')
     return render(request, 'login.html')
+
+
+def user_logout(request):
+    logout(request)
+    return redirect('users:user_login')
 
 @login_required
 def user_update(request, pk):
@@ -52,7 +57,7 @@ def user_update(request, pk):
         if form.is_valid():
             form.save()
             messages.success(request, 'User updated successfully!')
-            return redirect('user_detail', pk=pk)
+            return redirect('users:user_detail', pk=pk)
     else:
         form = CustomUserUpdateForm(instance=user)
     return render(request, 'user_update.html', {'form': form})
@@ -65,8 +70,3 @@ def user_delete(request, pk):
         messages.success(request, 'User deleted successfully!')
         return redirect('home')
     return render(request, 'user_delete.html', {'user': user})
-
-@login_required
-def user_logout(request):
-    logout(request)
-    return redirect('home')  # Redirect to home page after logout
