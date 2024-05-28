@@ -38,7 +38,7 @@ class CustomUser(AbstractUser):
         db_table = 'custom_user'
 
 class Student(models.Model):
-    campus = models.OneToOneField(
+    campus = models.ForeignKey(
         'campus.Campus', on_delete=models.CASCADE)
     events = models.ManyToManyField(
         'events.Event', blank=True, related_name='user_events')

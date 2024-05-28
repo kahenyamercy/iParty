@@ -10,7 +10,7 @@ class Event(models.Model):
     created_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE, related_name='event_creator')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    poster = models.ImageField(upload_to='event_posters/', blank=True)  # Field for poster upload
+    poster = models.ImageField(upload_to='event_posters/', blank=True)
 
     
     
