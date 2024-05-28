@@ -8,22 +8,23 @@ from django.contrib import messages
 def event_list(request):
     events = Event.objects.all().order_by('-created_at')  # Order by recent first
     context = {'events': events}
-    return render(request, 'event_list.html', context)
+    return render(request, 'user_events.html', context)
 
-@login_required
-def event_create(request):
+
+@login_required(login_url='/users/login')
+def create_event(request):
     if request.method == 'POST':
-        form = EventForm(request.POST, request.FILES)  # Include uploaded files
+        form = EventForm(request.POST, request.FILES)
         if form.is_valid():
-            event = form.save(commit=False)  # Don't save yet (set creator)
+            event = form.save(commit=False)
             event.created_by = request.user
             event.save()
             messages.success(request, 'Event created successfully!')
-            return redirect('event_list')  # Redirect to event list
+            return redirect('app:dashboard')
     else:
         form = EventForm()
-    context = {'form': form}
-    return render(request, 'event_create.html', context)
+
+    return render(request, 'create_event.html', {'form': form})
 
 @login_required
 def event_detail(request, pk):

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}
+User Events - Kampus iParty
+{% endblock %}
+
+{% block content %}
+<section>
+  <div class="flex justify-between items-center">
+    <h3 class="text-2xl font-bold mb-4 my-auto">Organized Events</h3>
+    <a href="{% url 'events:create_event' %}" class="bg-blue-600 px-2 py-1 rounded text-white hover:bg-gray-900 block flex gap-2 items-center">
+      <i class="fa fa-calendar" aria-hidden="true"></i>
+      <h6 class="my-auto">Add Event</h6>
+    </a>
+  </div>
+   <div>
+    <a href="{% url 'events:user_events' %}" class="bg-blue-100 p-1 text-blue-600 text-lg border">Organized Events</a>
+    <a href="{% url 'bookings:user_bookings' %}" class="bg-orange-100 p-1 text-orange-600 text-lg border">Booked Events</a>
+  </div>
+</section>
+{% endblock %}

@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}Kampus iParty{% endblock %}</title>
   <script src="https://cdn.tailwindcss.com"></script>
+   <script src="https://kit.fontawesome.com/7668282ff5.js" crossorigin="anonymous"></script>
 </head>
 <body class="bg-gray-100">
 
@@ -16,7 +17,7 @@
       <nav>
         <ul class="flex space-x-4">
           <li><a href="{% url 'app:user_dashboard' %}" class="hover:underline">Dashboard</a></li>
-          <li><a href="#" class="hover:underline">My Events</a></li>
+          <li><a href="{% url 'events:user_events' %}" class="hover:underline">My Events</a></li>
           <li><a href="#" class="hover:underline">Profile</a></li>
           <li><a href="{% url 'users:user_logout' %}" class="hover:underline">Logout</a></li>
         </ul>

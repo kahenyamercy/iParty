@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import CustomUser
@@ -19,9 +20,9 @@ def user_create(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
             username = request.POST.get('username')
-            password = request.POST.get('password')
+            password = request.POST.get('password1')
             user = authenticate(request, username=username, password=password)
             if user:
                 login(request, user)
@@ -34,15 +35,20 @@ def user_create(request):
 
 def user_login(request):
     if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
-        if user:
-            login(request, user)
-            return redirect('app:user_dashboard')
-        else:
-            messages.error(request, 'Invalid username or password!')
-    return render(request, 'login.html')
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None and user.user_type == 'teacher':
+                login(request, user)
+                return redirect('app:dashboard')
+            else:
+                form.add_error(
+                    None, "You are not authorized to access this page.")
+    else:
+        form = AuthenticationForm()
+    return render(request, 'login.html', {'form': form})
 
 
 def user_logout(request):
