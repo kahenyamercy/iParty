@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Event Details - Kampus iParty
+{% endblock %}
+
+{% block content %}
+<h2 class="text-3xl font-bold mb-6">{{ event.title }}</h2>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+  <!-- Left Column: Event Poster -->
+  <div class="md:col-span-1 bg-white p-2">
+    {% if event.poster %}
+    <img src="{{ event.poster.url }}" class="w-full h-96 object-fit rounded" alt="{{ event.title }}">
+    {% else %}
+    <div class="w-full h-64 bg-gray-200 flex items-center justify-center text-gray-500">
+      No Poster Available
+    </div>
+    {% endif %}
+  </div>
+
+  <!-- Right Column: Event Details -->
+  <div class="md:col-span-2">
+    <div class="bg-white p-4 rounded relative">
+      <h3 class="text-2xl font-bold mb-4">Event Details</h3>
+        <p class="w-max bg-indigo-100 px-2 rounded text-blue-600 py-1 my-0 absolute top-1 right-1">{{ event.date }}</p>
+      <div class="flex flex-col">
+        <h6 class="my-0"><strong>Description</strong></h6>
+        <p class="text-gray-700 py-1 my-0">{{ event.description }}</p>
+      </div>
+      <div class="flex justify-between">
+        <div class="flex flex-col">
+        <h6 class="my-0"><strong>Campus</strong></h6>
+        <p class="text-gray-700 py-1 my-0 bg-orange-100 text-orange-600 px-2 py-1 rounded">{{ event.campus.name }}</p>
+      </div>
+      <div class="flex flex-col">
+        <h6 class="my-0"><strong>Campus Location</strong></h6>
+        <p class="text-gray-700 py-1 my-0">{{ event.campus.location }}</p>
+      </div>
+      <div class="flex flex-col">
+        <h6 class="my-0"><strong>Event Location</strong></h6>
+        <p class="text-gray-700 py-1 my-0 bg-orange-100 text-orange-600 px-2 py-1 rounded">{{ event.location }}</p>
+      </div>
+      </div>
+       <div class="my-2">
+        <h5 class="font-bold">Organizer's Details</h5>
+        <div class="flex gap-5 border border-gray-300 p-4 mt-2">
+            <div class="flex flex-col">
+                <h6 class="my-0 font-semibold text-md">Userame</h6>
+                <p class="text-gray-600 my-0">{{ event.created_by.username }}</p>
+            </div>
+            <div class="flex flex-col">
+                <h6 class="my-0 font-semibold text-md">Contact</h6>
+                <p class="text-gray-700 my-0">{{ event.created_by.phone_number }}</p>
+            </div>
+        </div>
+       </div>
+       <div class="my-2">
+        <h5 class="font-bold">Event Budget</h5>
+        <table>
+            <thead>
+                <tr>
+                    <th class="text-left p-2 border border-gray-300">Estimated Budget Total</th>
+                    <th class="text-left p-2 border border-gray-300">Estimated Attendees</th>
+                    <th class="text-left p-2 border border-gray-300">Contribution per Attendee</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                     <td class="text-left p-2 border border-gray-300">KES 2000</td>
+                     <td class="text-left p-2 border border-gray-300">20 <span class="text-xs text-gray-600">attendees</span></td>
+                     <td class="text-left p-2 border border-gray-300">KES 100</td>
+                </tr>
+            </tbody>
+        </table>
+       </div>
+    </div>
+  </div>
+</div>
+
+<!-- Booking Section -->
+<div class="w-2/5 bg-white p-6 rounded shadow-md relative">
+    <h3 class="text-2xl font-bold mb-2">Book Your Slot</h3>
+    <p class="text-gray-600 text-md">Contribute <span class="text-xl font-semibold text-blue-600">KES 100</span> to book your slot at the <span class="text-xl font-semibold text-blue-600">{{event.title}}.</span> You can do so by entering your mobile money phone number and click Pay. An M-pesa STK prompt will be pushed to your phone requesting to authorze the transaction.</p>
+  <p class="w-max bg-indigo-100 px-2 rounded text-blue-600 py-1 my-0 absolute top-1 right-1">Remaining Slots: 2</p>
+  <form method="post" action="">
+    {% csrf_token %}
+   <div class="flex flex-col">
+     <label for="phone" class="mb-1">M-pesa Number</label>
+    <input type="text" placeholder="0737898578" id="phone" class="p-2 border focus:outline-blue-600 rounded text-gray-600">
+   </div>
+    <button type="submit" class="bg-blue-600 text-white rounded px-4 py-2 w-full my-2 hover:bg-gray-900">Pay</button>
+  </form>
+</div>
+{% endblock %}

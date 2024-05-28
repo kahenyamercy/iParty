@@ -29,7 +29,7 @@ def event_create(request):
 def event_detail(request, pk):
     event = get_object_or_404(Event, pk=pk)
     context = {'event': event}
-    return render(request, 'event_detail.html', context)
+    return render(request, 'event_details.html', context)
 
 @login_required
 def event_update(request, pk):
