@@ -42,7 +42,7 @@ def user_login(request):
             user = authenticate(username=username, password=password)
             if user:
                 login(request, user)
-                return redirect('app:dashboard')
+                return redirect('app:user_dashboard')
             else:
                 form.add_error(
                     None, "You are not authorized to access this page.")
