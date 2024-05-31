@@ -1,0 +1,352 @@
+/* Add your custom CSS styles here */
+
+/* CSS for Navbar */
+.navbar {
+  background-color: black; /* Set background color to black */
+  color: white; /* Set text color to white */
+  font-weight: bold; /* Set text to bold */
+}
+
+.navbar a {
+  color: white; /* Set link text color to white */
+}
+
+/* Hover effect for links */
+.navbar a:hover {
+  color: white; /* Change link text color on hover */
+}
+
+
+/* Hero Section */
+.hero {
+    position: relative;
+    overflow: hidden;
+    height: 100vh; /* Adjust the height as needed */
+    display: flex;
+    align-items: center;
+}
+
+#bg-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+}
+
+.hero .container {
+    position: relative;
+    z-index: 1;
+}
+
+
+/*features*/
+body {
+    margin: 0;
+    font-family: sans-serif;
+    background-color: lightgrey;
+    color: #333;
+    text-align: center;
+  }
+  
+  .container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .section-title {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    color: #222;
+  }
+  
+  .features {
+    background-color: lightgray;
+    padding: 60px 20px;
+  }
+  
+  .features-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  
+  .feature-card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin: 20px;
+    flex: 1 1 calc(33.333% - 40px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s;
+  }
+  
+  .feature-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .feature-card img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .feature-description {
+    padding: 20px;
+    font-size: 1.2rem;
+    color: #555;
+  }
+  
+  @media (max-width: 768px) {
+    .feature-card {
+      flex: 1 1 calc(50% - 40px);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .feature-card {
+      flex: 1 1 100%;
+    }
+  }
+  
+
+
+/* Upcoming Events Section */
+.events {
+    padding: 80px 0;
+}
+
+.events h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+.event-card {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.event-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.event-card p {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+
+
+/*services section*/
+#services .services-top {
+    padding: 70px 0 50px;
+}
+#services .services-list {
+    padding-top: 50px;
+}
+.services-list .service-block {
+    margin-bottom: 25px;
+}
+.services-list .service-block .ico {
+    font-size: 38px;
+    float: left;
+}
+.services-list .service-block .text-block {
+    margin-left: 58px;
+}
+.services-list .service-block .text-block .name {
+    font-size: 20px;
+    font-weight: 900;
+    margin-bottom: 5px;
+}
+.services-list .service-block .text-block .info {
+    font-size: 16px;
+    font-weight: 300;
+    margin-bottom: 10px;
+}
+.services-list .service-block .text-block .text {
+    font-size: 12px;
+    line-height: normal;
+    font-weight: 300;
+}
+.highlight {
+    color: #2ac5ed;
+    font-weight:bold;
+}
+
+
+/*About Section*/
+.about {
+    padding: 80px 0;
+    text-align: center;
+}
+.about h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+.about p {
+    font-size: 1.25rem;
+    margin-bottom: 40px;
+}
+.about img {
+    border-radius: 60px;
+    margin-bottom: 90px;
+    height: 800px;
+    object-fit: cover;
+}
+
+/*FAQS section*/
+.faq {
+    text-align: center;
+}
+
+.faq h3 {
+    cursor: pointer;
+}
+
+.faq .collapse {
+    display: none;
+}
+
+.faq .collapse.show {
+    display: block;
+}
+
+
+/*Team Section*/
+.container.section-title {
+    text-align: center;
+}
+
+.team .member {
+    border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .team .member img {
+    border-radius: 50%;
+    max-width: 60%;
+    margin: 30px 0;
+  }
+  
+  .team .member .member-content {
+    padding: 0 20px 30px 20px;
+  }
+  
+  .team .member h4 {
+    font-weight: 700;
+    margin-bottom: 2px;
+    font-size: 18px;
+  }
+  
+  .team .member span {
+    font-style: italic;
+    display: block;
+    font-size: 13px;
+    color: color-mix(in srgb, var(--default-color), transparent 20%);
+  }
+  
+  .team .member p {
+    padding-top: 10px;
+    font-size: 14px;
+    font-style: italic; 
+    color: color-mix(in srgb, var(--default-color), transparent 40%);
+  }
+  
+  .team .member .social {
+    margin-top: 15px;
+  }
+  
+  .team .member .social a {
+    color: color-mix(in srgb, var(--default-color), transparent 60%);
+    transition: 0.3s;
+  }
+  
+  .team .member .social a:hover {
+    color: var(--accent-color);
+  }
+  
+  .team .member .social i {
+    font-size: 18px;
+    margin: 0 2px;
+  }
+  
+/* Contact Section */
+.contact {
+    background-color: #f0f0f0;
+    padding: 80px 0;
+    text-align: center;
+}
+
+.contact h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.contact-form textarea {
+    height: 150px;
+}
+
+.contact-form input[type="submit"] {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.contact-form input[type="submit"]:hover {
+    background-color: #555;
+}
+
+/* Footer */
+.footer {
+    background-color: #333;
+    color: #fff;
+    padding: 40px 0;
+    text-align: center;
+}
+
+.footer p {
+    margin-bottom: 20px;
+}
+
+.footer a {
+    color: #fff;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
