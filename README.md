@@ -80,38 +80,7 @@ Welcome to **iPartyApp**, the ultimate solution for effortless campus party plan
 4. Make your contribution through the integrated payment gateway.
 5. Receive a confirmation message via WhatsApp.
 
-## 🛠️ Project Structure
-
-iPartyApp/
-│
-├── ipartyapp/ # Project settings and configuration
-│ ├── settings.py # Main settings file
-│ ├── urls.py # URL declarations
-│ └── wsgi.py # WSGI configuration
-│
-├── campus/ # Campus application
-│ ├── migrations/ # Database migrations
-│ ├── models.py # Data models
-│ ├── views.py # View logic
-│ └── urls.py # Campus URLs
-│
-├── events/ # Event application
-│ ├── migrations/ # Database migrations
-│ ├── models.py # Data models
-│ ├── views.py # View logic
-│ └── urls.py # Event URLs
-│
-├── users/ # User management application
-│ ├── migrations/ # Database migrations
-│ ├── models.py # Data models
-│ ├── views.py # View logic
-│ └── urls.py # User URLs
-│
-└── templates/ # HTML templates
-├── base.html # Base template
-├── campus/ # Campus templates
-├── events/ # Event templates
-└── users/ # User templates
+[Watch the video on Loom](https://www.loom.com/share/0ed40d64938242589acb938e0626a6fe?sid=17982000-d0be-47be-bdd7-d2c8d1284331)
 
 
 ## 🤝 Contributing
