@@ -1,128 +1,459 @@
 <!DOCTYPE html>
 <html lang="en">
-    {% load static %}
+{% load static %}
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kampus iParty</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    // JavaScript for carousel functionality
-    document.addEventListener('DOMContentLoaded', function() {
-      let currentIndex = 0;
-      const slides = document.querySelectorAll('.carousel-slide');
-      const totalSlides = slides.length;
-      
-      const showSlide = (index) => {
-        slides.forEach((slide, i) => {
-          slide.classList.toggle('hidden', i !== index);
-        });
-      };
-
-      const nextSlide = () => {
-        currentIndex = (currentIndex + 1) % totalSlides;
-        showSlide(currentIndex);
-      };
-
-      showSlide(currentIndex);
-      setInterval(nextSlide, 3000); // Change slide every 3 seconds
-    });
-
-    // Smooth scroll for "Contact Us" link
-    document.addEventListener('DOMContentLoaded', function() {
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-          e.preventDefault();
-          document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-          });
-        });
-      });
-    });
-  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kampus iParty - Party Planning Made Easy</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <!-- -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
 </head>
-<body class="bg-gray-100">
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-secondary fixed-top">
+        <div class="container" data-aos="fade-up">
+            <a class="navbar-brand" href="#">Kampus iParty</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-  <header class="bg-blue-600 text-white py-4">
-    <div class="container mx-auto flex justify-between items-center">
-      <h1 class="text-2xl font-bold">Kampus iParty</h1>
-      <nav>
-        <ul class="flex space-x-4">
-          <li><a href="#" class="hover:underline">Home</a></li>
-          <li><a href="#" class="hover:underline">Events</a></li>
-          <li><a href="#contact" class="hover:underline">Contact</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#events">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#testimonials">Testimonials</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#team">Team</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
 
-  <main class="container mx-auto py-10">
-    <div class="text-center">
-      <h2 class="text-4xl font-bold mb-4">Welcome to the <b>Kampus iParty</b> - Campus Event Booking System</h2>
-      <p class="text-lg mb-8">Organize and fund your campus events with ease!</p>
-      <a href="#" class="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700">Get Started</a>
-    </div>
-
-    <!-- Carousel Section -->
-    <div class="mt-10 relative">
-      <div class="carousel-slide bg-blue-200 h-64 flex items-center justify-center text-white text-2xl font-bold">Slide 1 - Party Image 1</div>
-      <div class="carousel-slide bg-red-200 h-64 flex items-center justify-center text-white text-2xl font-bold hidden">Slide 2 - Party Image 2</div>
-      <div class="carousel-slide bg-green-200 h-64 flex items-center justify-center text-white text-2xl font-bold hidden">Slide 3 - Party Image 3</div>
-    </div>
-
-    <!-- Informative Sections -->
-    <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="bg-white p-6 rounded-lg shadow-lg">
-        <h3 class="text-2xl font-bold mb-2">Create an Event</h3>
-        <p class="text-gray-700 mb-4">Easily create and manage your campus events.</p>
-        <a href="#" class="text-blue-600 hover:underline">Learn More</a>
-      </div>
-
-      <div class="bg-white p-6 rounded-lg shadow-lg">
-        <h3 class="text-2xl font-bold mb-2">Fund Your Event</h3>
-        <p class="text-gray-700 mb-4">Mobilize funds from your peers to make your event happen.</p>
-        <a href="#" class="text-blue-600 hover:underline">Learn More</a>
-      </div>
-
-      <div class="bg-white p-6 rounded-lg shadow-lg">
-        <h3 class="text-2xl font-bold mb-2">Join Events</h3>
-        <p class="text-gray-700 mb-4">Find and join exciting events happening on campus.</p>
-        <a href="#" class="text-blue-600 hover:underline">Learn More</a>
-      </div>
-    </div>
-
-    <!-- Additional Informative Section -->
-    <div class="mt-10 bg-white p-6 rounded-lg shadow-lg">
-      <h3 class="text-2xl font-bold mb-2">Why Choose Kampus iParty?</h3>
-      <p class="text-gray-700 mb-4">Kampus iParty makes it easy to organize, fund, and join campus events. Whether it's a birthday bash, a study group, or a campus-wide festival, our platform connects you with your peers and helps make your event a success.</p>
-    </div>
-
-    <!-- Contact Us Section -->
-    <div id="contact" class="mt-10 bg-white p-6 rounded-lg shadow-lg">
-      <h3 class="text-2xl font-bold mb-2">Contact Us</h3>
-      <form>
-        <div class="mb-4">
-          <label for="name" class="block text-gray-700">Name:</label>
-          <input type="text" id="name" name="name" class="w-full px-3 py-2 border rounded-lg" required>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'users:user_login' %}">Login</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-        <div class="mb-4">
-          <label for="email" class="block text-gray-700">Email:</label>
-          <input type="email" id="email" name="email" class="w-full px-3 py-2 border rounded-lg" required>
-        </div>
-        <div class="mb-4">
-          <label for="message" class="block text-gray-700">Message:</label>
-          <textarea id="message" name="message" class="w-full px-3 py-2 border rounded-lg" required></textarea>
-        </div>
-        <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700">Submit</button>
-      </form>
-    </div>
-  </main>
+    </nav>
 
-  <footer class="bg-gray-800 text-white py-6">
-    <div class="container mx-auto text-center">
-      <p>&copy; 2024 Kampus iParty. All rights reserved.</p>
-    </div>
-  </footer>
+<!-- Hero Section -->
+<section class="hero" data-aos="fade-up">
+    <video autoplay muted loop playsinline id="bg-video">
+        <source src="{% static 'images/video.mp4' %}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+</section>
 
+
+
+<!--Features Section-->
+<section class="features" id="features" data-aos="fade-up">
+    <div class="container">
+      <h2 class="section-title">Key Features</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <img src="{% static 'images/features/signup.png' %}" alt="SignUp">
+          <div class="feature-description">SignUp</div>
+        </div>
+        <div class="feature-card">
+          <img src="{% static 'images/features/create_event.png' %}" alt="Create Event">
+          <div class="feature-description">Create Event</div>
+        </div>
+        <div class="feature-card">
+          <img src="{% static 'images/features/view_current_events.png' %}" alt="View Event Details">
+          <div class="feature-description">View Current Event Details</div>
+        </div>
+        <div class="feature-card">
+          <img src="{% static 'images/features/book_event.png' %}" alt="Book a Slot for an Event">
+          <div class="feature-description">Book a Slot for an Event</div>
+        </div>
+        <div class="feature-card">
+          <img src="{% static 'images/features/new_events.png' %}" alt="View Upcoming Events">
+          <div class="feature-description">View Upcoming Events</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+
+
+
+  
+
+<!-- Events Section -->
+<section id="events" class="events" data-aos="fade-up">
+    <div class="container">
+        <h2 class="text-center mb-5">Upcoming Events</h2>
+        <!-- Event Cards -->
+        <div class="row">
+            <!-- Event Card 1 -->
+            <div class="col-lg-4">
+                <div class="card" data-aos="fade-up">
+                    <div class="card-body">
+                        <h3 class="card-title">Beach Party Bash</h3>
+                        <p class="card-text">Join us for a fun-filled beach party this weekend!</p>
+                        <p class="card-text"><strong>Contribution:</strong> KES 200 per person</p>
+                        <a href="#" class="btn btn-primary">Book Now</a>
+                    </div>
+                </div>
+            </div>
+             <!-- Event Card 2 -->
+             <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body" data-aos="fade-left">
+                        <h3 class="card-title">Campus Carnival Night</h3>
+                        <p class="card-text">Experience the thrill of a carnival right at your campus!</p>
+                        <p class="card-text"><strong>Contribution:</strong> KES 150 per person</p>
+                        <a href="#" class="btn btn-primary">Book Now</a>
+                    </div>
+                </div>
+            </div>   
+            <!-- Event Card 3 -->
+            <div class="col-lg-4">
+                <div class="card" data-aos="fade-right">
+                    <div class="card-body" data-aos="fade-left">
+                        <h3 class="card-title">Movie Under the Stars</h3>
+                        <p class="card-text">Enjoy a movie night under the open sky with friends.</p>
+                        <p class="card-text"><strong>Contribution:</strong> KES 100 per person</p>
+                        <a href="#" class="btn btn-primary">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+    <!-- Services Section -->
+    <section id="services" class="current" data-aos="fade-up">
+        <div class="services-top">
+            <div class="container bootstrap snippets bootdey">
+                <div class="row text-center">
+                    <div class="col-sm-12 col-md-12 col-md-12">
+                        <h2>What We Offer</h2>
+                        <h2 style="font-size: 60px;line-height: 60px;margin-bottom: 20px;font-weight: 900;">Our Services</h2>
+                        <p>Our <span class="highlight">experienced</span> and <span class="highlight">dedicated</span> staff provide these services with a smile.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-offset-1 col-sm-12 col-md-12 col-md-10">
+                        <div class="services-list">
+                            <div class="row">
+                                <div class="col-sm-6 col-md-4 col-md-4">
+                                    <div class="service-block" style="visibility: visible;">
+                                        <div class="ico fa fa-plus highlight"></div>
+                                        <div class="text-block">
+                                            <div class="name">Party Creation and Management</div>
+                                            <div class="info">Effortless party organization</div>
+                                            <div class="text">Users can create and manage parties, specifying details like title, location, date/time, and attendee limits.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-4 col-md-4">
+                                    <div class="service-block" style="visibility: visible;">
+                                     <div class="ico fa fa-envelope highlight"></div>
+                                        <div class="text-block">
+                                            <div class="name">Guest Invitations</div>
+                                            <div class="info">Streamlined invitation process</div>
+                                            <div class="text">Invite friends directly through the app, simplifying the invitation process.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-4 col-md-4">
+                                    <div class="service-block" style="visibility: visible;">
+                                        <div class="ico fa fa-money highlight"></div>
+                                        <div class="text-block">
+                                            <div class="name">Contribution Management</div>
+                                            <div class="info">Efficient contribution tracking</div>
+                                            <div class="text">Set contribution amounts per person for each party and track contributions securely within the app.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-4 col-md-4">
+                                    <div class="service-block" style="visibility: visible;">
+                                        <div class="ico fa fa-credit-card highlight"></div>
+                                        <div class="text-block">
+                                            <div class="name">Payment Processing</div>
+                                            <div class="info">Secure and convenient transactions</div>
+                                            <div class="text">Integrate with payment gateways like M-Pesa for hassle-free and secure payments.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-4 col-md-4">
+                                    <div class="service-block" style="visibility: visible;">
+                                        <div class="ico fa fa-search highlight"></div>
+                                        <div class="text-block">
+                                            <div class="name">Event Discovery</div>
+                                            <div class="info">Explore upcoming events</div>
+                                            <div class="text">Discover and browse upcoming parties based on location preferences.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-4 col-md-4">
+                                    <div class="service-block" style="visibility: visible;">
+                                        <div class="ico fa fa-check-circle highlight"></div>
+                                        <div class="text-block">
+                                            <div class="name">Confirmation and Communication</div>
+                                            <div class="info">Clear and timely communication</div>
+                                            <div class="text">Provide users with confirmation messages upon booking and payment, including essential details.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="row">
+                <!-- Text on the left -->
+                <div class="col-lg-6" data-aos="fade-right">
+                    <h2 class="text-center mb-5">About Kampus iParty</h2>
+                    <p>Kampus iParty is an innovative platform designed to simplify party planning for students. With our app, you can easily create, discover, and join parties happening at your campus or nearby institutions. Say goodbye to the hassle of organizing events and enjoy a seamless party experience with Kampus iParty.</p>
+                    <p>At Kampus iParty, we understand the challenges students face when planning events. That's why we've created a user-friendly platform that streamlines the entire process. Whether you're hosting a small gathering or a large campus-wide event, our app has everything you need to make it a success.</p>
+                    <p>Our mission is to make party planning fun, easy, and stress-free for students. We believe that everyone should have the opportunity to celebrate and create unforgettable memories with friends. With Kampus iParty, you can focus on enjoying the party while we take care of the details.</p>
+                    <p>Join the Kampus iParty community today and discover a new way to party!</p>
+                </div>
+                <!-- Image on the right -->
+                <div class="col-lg-6" data-aos="fade-left">
+                    <img src="{% static 'images/about_image.jpg' %}" alt="About Image" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- FAQ Section -->
+    <section id="faq" class="section faq-section" data-aos="fade-left">
+        <div class="container">
+            <h2 class="text-center">Frequently Asked Questions</h2>
+
+            <!-- General Questions -->
+            <div class="faq">
+                <h3 class="faq-question" data-toggle="collapse" data-target="#faq1">What is Kampus iParty?</h3>
+                <div id="faq1" class="collapse">
+                    <p>Kampus iParty is a party planning app designed to simplify the process of organizing and attending events for college students. Its target audience includes students looking to create, discover, and join parties on their campus or nearby institutions.</p>
+                <!-- FILEPATH: /home/veronica/iParty/templates/index.html -->
+                <div class="container">
+                    <div class="faq">
+                        <h3 class="faq-question" data-toggle="collapse" data-target="#faq2">Is the app free to use?</h3>
+                        <div id="faq2" class="collapse">
+                            <p>Yes, Kampus iParty follows a freemium model, offering basic features for free with optional premium upgrades for additional functionality.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq">
+                        <h3 class="faq-question" data-toggle="collapse" data-target="#faq3">How do I get started with the app?</h3>
+                        <div id="faq3" class="collapse">
+                            <p>To get started, simply download the Kampus iParty app from the App Store or Google Play Store. Once installed, follow the on-screen instructions to register an account and start exploring parties.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq">
+                        <h3 class="faq-question" data-toggle="collapse" data-target="#faq4">Is the app secure?</h3>
+                        <div id="faq4" class="collapse">
+                            <p>Yes, Kampus iParty takes data privacy and payment security seriously. We employ robust encryption methods to protect user information and integrate with secure payment gateways for handling transactions.</p>
+                        </div>
+                    </div>
+
+                    <!-- Creating and Managing Parties -->
+                    <div class="faq">
+                        <h3 class="faq-question" data-toggle="collapse" data-target="#faq5">How do I create a party event?</h3>
+                        <div id="faq5" class="collapse">
+                            <p>To create a party event, navigate to the "Create Event" section within the app and fill in the required details such as title, description, location, date/time, and attendee limits.</p>
+                        </div>
+                    </div>
+
+                    <!-- Guest Invitations and Contributions -->
+                    <div class="faq">
+                        <h3 class="faq-question" data-toggle="collapse" data-target="#faq6">How do I invite friends to my party?</h3>
+                        <div id="faq6" class="collapse">
+                            <p>You can invite friends to your party directly through the app by selecting the "Invite Friends" option and choosing contacts from your address book.</p>
+                        </div>
+                    </div>
+
+                    <!-- Finding Parties -->
+                    <div class="faq">
+                        <h3 class="faq-question" data-toggle="collapse" data-target="#faq7">How do I discover parties happening near me?</h3>
+                        <div id="faq7" class="collapse">
+                            <p>To discover parties near you, enable location services in the app and browse the "Nearby Events" section. You can also adjust filters to narrow down your search based on date, theme, or other criteria.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+<!-- Testimonials Section -->
+<section id="testimonials" class="testimonials" data-aos="fade-up">
+    <div class="container">
+        <h2 class="text-center mb-5">Testimonials</h2>
+        <div class="row">
+            <!-- Testimonial 1 -->
+            <div class="col-lg-4 text-center mb-4" data-aos="fade-right">
+                <img src="{% static 'images/testimonial1.jpg' %}" class="rounded-circle mb-3" alt="John Doe" width="100" height="100">
+                <h5>John Doe</h5>
+                <p>"Kampus iParty made planning our event so easy and fun. Highly recommend it!"</p>
+            </div>
+            <!-- Testimonial 2 -->
+            <div class="col-lg-4 text-center mb-4" data-aos="fade-up">
+                <img src="{% static 'images/testimonial2.jpg' %}" class="rounded-circle mb-3" alt="Jane Smith" width="100" height="100">
+                <h5>Jane Smith</h5>
+                <p>"The best platform for organizing campus events. We had a blast at our party!"</p>
+            </div>
+            <!-- Testimonial 3 -->
+            <div class="col-lg-4 text-center mb-4" data-aos="fade-left">
+                <img src="{% static 'images/testimonial3.jpg' %}" class="rounded-circle mb-3" alt="Emily Johnson" width="100" height="100">
+                <h5>Emily Johnson</h5>
+                <p>"Amazing experience! Everything was so well organized thanks to Kampus iParty."</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- Team Section -->
+<section id="team" class="team section">
+    <div class="container section-title" data-aos="fade-up">
+        <span>Team</span>
+        <h2>Meet Our Team</h2>
+        <p>Dedicated professionals bringing your party planning experience to life</p>
+    </div>
+    <div class="container">
+        <div class="row">
+            <!-- Team Member 1 -->
+            <div class="col-lg-6 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="100">
+                <div class="member">
+                    <img src="{% static 'images/team/mercy_kahenya.jpg' %}" class="img-fluid" alt="Mercy Kahenya">
+                    <div class="member-content">
+                        <h4>Mercy Kahenya</h4>
+                        <span>Backend Engineer</span>
+                        <p>Ensures the reliability and efficiency of our platform's backend systems. Guarantees smooth and scalable operations.</p>
+                        <div class="social">
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-facebook"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Team Member 2 -->
+            <div class="col-lg-6 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="200">
+                <div class="member">
+                    <img src="{% static 'images/team/wamae_ndiritu.jpg' %}" class="img-fluid" alt="Wamae Ndiritu">
+                    <div class="member-content">
+                        <h4>Wamae Ndiritu</h4>
+                        <span>Frontend Engineer</span>
+                        <p>Excels in creating visually stunning and user-friendly interfaces. Ensures that every interaction on our platform is seamless and enjoyable.</p>
+                        <div class="social">
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-facebook"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="contact" data-aos="fade-up">
+    <div class="container">
+        <h2 class="text-center mb-5">Contact Us</h2>
+        <div class="row">
+            <div class="col-lg-6">
+                <form id="contact-form"> <!-- Add id="contact-form" to the form element -->
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea class="form-control" id="message" name="message" rows="3" placeholder="Enter your message"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+            <div class="col-lg-6">
+                <div class="contact-info">
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Main Street, Nairobi, Kenya</p>
+                    <p><i class="fas fa-phone-alt"></i> +254 768805755</p>
+                    <p><i class="fas fa-envelope"></i> wamaejoseph392@gmail.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+ <!-- Footer Section -->
+ <footer class="footer">
+    <div class="container text-center">
+        <p>&copy; 2024 Kampus iParty. All rights reserved.</p>
+    </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- Font Awesome JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Custom JS -->
+<script src="{% static 'js/main.js' %}"></script>
+<script>
+    AOS.init({
+        duration: 1000,
+        easing: 'ease-in-out',
+        once: true
+    });
+</script>
 </body>
 </html>
+
