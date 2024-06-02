@@ -4,10 +4,12 @@ from .models import Booking
 from events.models import Event
 from django.contrib import messages
 from django.db.models import F
+from  .forms import BookingForm
 
-@login_required(login_url='/users/login')
+@login_required
 def booking_list(request):
-    bookings = Booking.objects.annotate(event_created_at=F('created_at')
+    user = request.user
+    bookings = Booking.objects.filter(user=user.id).annotate(event_created_at=F('created_at')
     ).order_by('-created_at')
     for booking in bookings:
         print(booking)
@@ -20,19 +22,23 @@ def event_bookings(request, pk):
     context = {'event': event, 'bookings': bookings}
     return render(request, 'event_bookings.html', context)
 
+@login_required
 def book_event(request, pk):
+    print(f"Request path: {request.path}")
     event = get_object_or_404(Event, pk=pk)
+    user = request.user
     if request.method == 'POST':
-        # Handle booking form submission (implement form validation)
-        if event.has_available_seats():  # Check for available seats before booking
-            booking = Booking.objects.create(event=event, user=request.user)  # Create booking
-            # Handle transaction creation if applicable (integrate with transactions app)
-            messages.success(request, 'You have successfully booked the event!')
-            return redirect('event_detail', pk=pk)  # Redirect to event detail
-        else:
-            messages.error(request, 'Event is fully booked. Please try another event.')
-    context = {'event': event}
-    return render(request, 'book_event.html', context)
+        phone = request.POST.get('phone_no')
+        print(phone)
+        booking_data = {
+            "event": event.id,
+            "user": user.id
+        }
+        form = BookingForm(data=booking_data)
+        if form.is_valid():
+            form.save()
+            return redirect('bookings:user_bookings')
+    return redirect('app:user_dashboard')
 
 def booking_detail(request, pk):
     booking = get_object_or_404(Booking, pk=pk)
