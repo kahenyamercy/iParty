@@ -11,8 +11,6 @@ def booking_list(request):
     user = request.user
     bookings = Booking.objects.filter(user=user.id).annotate(event_created_at=F('created_at')
     ).order_by('-created_at')
-    for booking in bookings:
-        print(booking)
     context = {'bookings': bookings}
     return render(request, 'user_bookings.html', context)
 

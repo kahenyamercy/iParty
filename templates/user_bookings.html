@@ -11,5 +11,56 @@ User Bookings - Kampus iParty
     <a href="{% url 'events:user_events' %}" class="bg-blue-100 p-1 text-blue-600 text-lg border">Organized Events</a>
     <a href="{% url 'bookings:user_bookings' %}" class="bg-orange-100 p-1 text-orange-600 text-lg border">Booked Events</a>
   </div>
+  <section class="w-full my-3 flex gap-3">
+    {% for booking in bookings %}
+      <div class="w-full bg-white rounded shadow-sm p-4 flex gap-5 relative">
+        <h3 class="bg-blue-100 text-blue-600 rounded px-4 py-2 absolute top-1 right-1">{{booking.event.date}}</h3>
+        <div class="flex gap-3 items-center">
+          <img src="{{booking.event.poster.url}}" alt="{{booking.event.title}}" class="h-28">
+        </div>
+        <div>
+             <h2 class="font-semibold py-1">Event details</h2>
+              <h1 class="font-semibold text-blue-600">{{booking.event.title}}</h1>
+              <h4><strong>Event Budget: </strong>KES {{booking.event.total_budget_amount}}</h4>
+          </div>
+          <div class="">
+             <h2 class="font-semibold py-1">Ticket Fee</h2>
+              <div class="flex gap-2 items-center">
+                <h6 class="font-semibold">RSVP Fee: </h6>
+                <h6 class="bg-blue-100 text-blue-600 rounded px-2 py-1">KES {{booking.event.charges}}</h6>
+              </div>
+              <p class="text-sm text-gray-600 py-1">{{booking.event.description}}</p>
+          </div>
+         <div class="">
+             <h2 class="font-semibold py-1">Location</h2>
+              <div class="flex gap-2">
+                <h6 class="font-semibold">Venue: </h6>
+                <h6>{{booking.event.location}}</h6>
+              </div>
+          </div>
+           <div class="">
+             <h2 class="font-semibold py-1">Payment</h2>
+              {% if booking.is_paid %}
+                <h6 class="bg-green-200 text-green-600 rounded px-4 py-2">Paid</h6>
+              {% else %}
+                <div class="flex items-center gap-5">
+                  <div>
+                    <p class="text-red-500 bg-red-200 rounded-full p-2">Booking not paid!</p>
+                <a href="{% url 'events:event_details' pk=booking.event.id %}" class="underline text-sm text-blue-600">View Event Details</a>
+                  </div>
+                <form method="post" action="">
+                  {% csrf_token %}
+                  <h6>Pay Now using M-pesa</h6>
+                  <div class="flex gap-1 ">
+                    <input type="text" placeholder="0737898578" id="phone" class="p-2 border focus:outline-blue-600 rounded text-gray-600" name="phone_no" required>
+                    <button type="submit" class="bg-blue-600 text-white rounded px-4 py-2 w-full hover:bg-gray-900">Pay</button>
+                  </div>
+                </form>
+                </div>
+              {% endif %}
+          </div>
+      </div>
+    {% endfor %}
+  </section>
 </section>
 {% endblock %}
