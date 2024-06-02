@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+  {% load static %}
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
-      background-image: url('https://example.com/background-image.jpg'); /* Replace with your background image URL */
+      background-image: url("{% static 'images/' %}");
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
