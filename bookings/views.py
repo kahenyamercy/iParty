@@ -1,10 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
+import requests
 from .models import Booking
 from events.models import Event
 from django.contrib import messages
 from django.db.models import F
 from  .forms import BookingForm
+
 
 @login_required
 def booking_list(request):
@@ -34,8 +37,31 @@ def book_event(request, pk):
         }
         form = BookingForm(data=booking_data)
         if form.is_valid():
-            form.save()
-            return redirect('bookings:user_bookings')
+            booking = form.save()
+
+            # Call the mpesa_stk_push view
+            mpesa_url = request.build_absolute_uri(
+                reverse('transactions:send_stk_push', kwargs={'booking_id': booking.id}))
+            payload = {
+                'phone_no': phone
+            }
+            response = requests.post(
+                mpesa_url, data=payload, cookies=request.COOKIES)
+
+            event = get_object_or_404(Event, pk=pk)
+            if event.slots > 0:
+                charge_per_slot = round(event.total_budget_amount / event.slots)
+            else:
+                charge_per_slot = 0
+
+            context = {
+                'event': event,
+                'charge_per_slot': charge_per_slot,
+                'success_message': "An M-pesa STK push has been inititated on your phone, please complete the transaction..."
+            }
+            if response.status_code == 200:
+                return render(request, 'event_details.html', context)
+            
     return redirect('app:user_dashboard')
 
 def booking_detail(request, pk):

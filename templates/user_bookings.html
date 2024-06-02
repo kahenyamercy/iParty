@@ -11,7 +11,7 @@ User Bookings - Kampus iParty
     <a href="{% url 'events:user_events' %}" class="bg-blue-100 p-1 text-blue-600 text-lg border">Organized Events</a>
     <a href="{% url 'bookings:user_bookings' %}" class="bg-orange-100 p-1 text-orange-600 text-lg border">Booked Events</a>
   </div>
-  <section class="w-full my-3 flex gap-3">
+  <section class="w-full my-3 flex flex-col gap-3">
     {% for booking in bookings %}
       <div class="w-full bg-white rounded shadow-sm p-4 flex gap-5 relative">
         <h3 class="bg-blue-100 text-blue-600 rounded px-4 py-2 absolute top-1 right-1">{{booking.event.date}}</h3>
@@ -48,7 +48,7 @@ User Bookings - Kampus iParty
                     <p class="text-red-500 bg-red-200 rounded-full p-2">Booking not paid!</p>
                 <a href="{% url 'events:event_details' pk=booking.event.id %}" class="underline text-sm text-blue-600">View Event Details</a>
                   </div>
-                <form method="post" action="">
+                <form method="post" action="{% url 'transactions:send_stk_push' booking_id=booking.id %}">
                   {% csrf_token %}
                   <h6>Pay Now using M-pesa</h6>
                   <div class="flex gap-1 ">

@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.decorators import login_required
 from .models import Transaction
 from django.views import View
 from django.http import JsonResponse
-from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 import requests
 from requests.auth import HTTPBasicAuth
@@ -11,6 +11,7 @@ from django.http import HttpResponse
 import json
 import os
 from .mpesa import MpesaAccessToken, LipaNaMpesaPassword
+from bookings.models import Booking
 
 class TokenGeneratorView(View):
     def get(self, request, *args, **kwargs):
@@ -29,23 +30,22 @@ class TokenGeneratorView(View):
         else:
             return JsonResponse({"error": "Failed to generate token"}, status=r.status_code)
 
-
-@method_decorator(csrf_exempt, name='dispatch')
-class PaymentView(View):
-    def post(self, request, *args, **kwargs):
+@csrf_exempt
+@login_required
+def mpesa_stk_push(request, booking_id):
+    if request.method == 'POST':
+        user = request.user
         access_token = MpesaAccessToken.validated_mpesa_access_token
-        user_id = self.kwargs.get('user_id')
-        order_id = self.kwargs.get('order_id')
         server_url = os.environ.get('SERVER_URL')
+
+        booking = get_object_or_404(Booking, id=booking_id)
 
         api_url = "https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest"
         headers = {"Authorization": "Bearer %s" % access_token}
 
-        data = json.loads(request.body.decode('utf-8'))
-
-        phone = data.get('phone')
-        amount = data.get('amount')
-        call_back_url = f"{server_url}/mpesa/mpesa-callback/{user_id}/{order_id}"
+        phone = request.POST.get('phone_no')
+        amount = round(booking.event.total_budget_amount / booking.event.slots)
+        call_back_url = f"{server_url}/mpesa/mpesa-callback/{user.id}/{booking_id}"
 
         if phone and amount:
             mpesa = LipaNaMpesaPassword()
@@ -66,10 +66,14 @@ class PaymentView(View):
             response = requests.post(
                 api_url, json=request_payload, headers=headers)
 
-            return HttpResponse(response.text)
+            print(response.text)
+
+            return HttpResponse(response.text, content_type='application/json')
 
         else:
-            return HttpResponse({"message": "Invalid request parameters"})
+            return JsonResponse({"message": "Invalid request parameters"}, status=400)
+    else:
+        return JsonResponse({"message": "Method not allowed"}, status=405)
 
 # def handle_mpesa_callback(request, client_id, order_id):
 #     data = json.loads(request.body)
