@@ -6,7 +6,8 @@ from django.contrib import messages
 
 @login_required
 def event_list(request):
-    events = Event.objects.all().order_by('-created_at')  # Order by recent first
+    user = request.user
+    events = Event.objects.filter(created_by=user.id).order_by('-created_at') 
     context = {'events': events}
     return render(request, 'user_events.html', context)
 
