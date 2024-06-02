@@ -1,5 +1,17 @@
 from pathlib import Path
 import os
+from decouple import config
+from dotenv import load_dotenv
+# Load environment variables from .env
+load_dotenv()
+
+MPESA_CONSUMER_KEY = config('MPESA_CONSUMER_KEY')
+MPESA_CONSUMER_SECRET = config('MPESA_CONSUMER_SECRET')
+MPESA_PASS_KEY = config('MPESA_PASS_KEY')
+MPESA_BUSINESS_SHORT_CODE = config('MPESA_BUSINESS_SHORT_CODE')
+MPESA_TILL_NO = config('MPESA_TILL_NO')
+SERVER_URL = config('SERVER_URL')
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'requests',
+    'dotenv',
+    'decouple',
     'users',
     'events',
     'campus',
