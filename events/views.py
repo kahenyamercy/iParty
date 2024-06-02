@@ -6,7 +6,8 @@ from django.contrib import messages
 
 @login_required
 def event_list(request):
-    events = Event.objects.all().order_by('-created_at')  # Order by recent first
+    user = request.user
+    events = Event.objects.filter(created_by=user.id).order_by('-created_at') 
     context = {'events': events}
     return render(request, 'user_events.html', context)
 
@@ -20,7 +21,7 @@ def create_event(request):
             event.created_by = request.user
             event.save()
             messages.success(request, 'Event created successfully!')
-            return redirect('app:dashboard')
+            return redirect('app:user_dashboard')
     else:
         form = EventForm()
 
@@ -30,7 +31,7 @@ def create_event(request):
 def event_detail(request, pk):
     event = get_object_or_404(Event, pk=pk)
     if event.slots > 0:
-        charge_per_slot = event.total_budget_amount / event.slots
+        charge_per_slot = round(event.total_budget_amount / event.slots)
     else:
         charge_per_slot = 0 
 

@@ -17,5 +17,36 @@ User Events - Kampus iParty
     <a href="{% url 'events:user_events' %}" class="bg-blue-100 p-1 text-blue-600 text-lg border">Organized Events</a>
     <a href="{% url 'bookings:user_bookings' %}" class="bg-orange-100 p-1 text-orange-600 text-lg border">Booked Events</a>
   </div>
+    <section class="w-full my-3 flex gap-3">
+    {% for event in events %}
+      <div class="w-full bg-white rounded shadow-sm p-4 flex items-center gap-5 relative">
+        <h3 class="bg-blue-100 text-blue-600 rounded px-4 py-2 absolute top-1 right-1">{{event.date}}</h3>
+        <div class="flex gap-3 items-center">
+          <img src="{{event.poster.url}}" alt="{{booking.event.title}}" class="h-28">
+        </div>
+        <div>
+             <h2 class="font-semibold py-1">Event details</h2>
+              <h1 class="font-semibold text-blue-600">{{event.title}}</h1>
+              <h4><strong>Event Budget: </strong>KES {{event.total_budget_amount}}</h4>
+        </div>
+        <div class="">
+             <h2 class="font-semibold py-1">Ticket Fee</h2>
+              <div class="flex gap-2 items-center">
+                <h6 class="font-semibold">RSVP Fee: </h6>
+                <h6 class="bg-blue-100 text-blue-600 rounded px-2 py-1">KES {{event.charges}}</h6>
+              </div>
+              <p class="text-sm text-gray-600 py-1">{{event.description}}</p>
+        </div>
+        <div class="">
+             <h2 class="font-semibold py-1">Location</h2>
+              <div class="flex gap-2">
+                <h6 class="font-semibold">Venue: </h6>
+                <h6>{{event.location}}</h6>
+              </div>
+        </div>
+        <a href="{% url 'events:event_details' pk=event.id %}" class="bg-blue-600 rounded px-4 py-2 text-white h-auto">View Event Details</a>
+      </div>
+    {% endfor %}
+  </section>
 </section>
 {% endblock %}
