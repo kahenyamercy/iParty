@@ -1,2 +1,1 @@
-web: gunicorn Awards.wsgi:application
-
+web: gunicorn iParty.wsgi:application
