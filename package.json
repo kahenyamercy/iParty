@@ -3,6 +3,6 @@
     "bootstrap": "^5.3.3"
   },
   "scripts": {
-    "build": "npm run build"
+    "build": "bootstrap build"
   }
 }
