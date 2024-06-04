@@ -4,7 +4,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import CustomUser
-from .forms import CustomUserCreationForm, CustomUserUpdateForm
+from .forms import CustomUserCreationForm, CustomUserUpdateForm, StudentForm
 
 @login_required
 def user_list(request):
@@ -19,18 +19,24 @@ def user_detail(request, pk):
 def user_create(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
+        studentForm = StudentForm(request.POST)
         if form.is_valid():
             user = form.save()
-            username = request.POST.get('username')
-            password = request.POST.get('password1')
-            user = authenticate(request, username=username, password=password)
-            if user:
-                login(request, user)
-                messages.success(request, 'User created successfully!')
-                return redirect('app:user_dashboard')
+            if studentForm.is_valid():
+                studentForm.save()
+                username = request.POST.get('username')
+                password = request.POST.get('password1')
+                user = authenticate(request, username=username, password=password)
+                if user:
+                    login(request, user)
+                    messages.success(request, 'User created successfully!')
+                    return redirect('app:user_dashboard')
+            else:
+                user.delete()
     else:
         form = CustomUserCreationForm()
-    return render(request, 'register.html', {'form': form})
+        studentForm = StudentForm()
+    return render(request, 'register.html', {'form': form, 'student_form': studentForm})
 
 
 def user_login(request):

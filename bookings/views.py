@@ -2,14 +2,62 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 import requests
+import os
 from .models import Booking
 from events.models import Event
 from django.contrib import messages
 from django.db.models import F
 from  .forms import BookingForm
 
+API_WAP_BASE_URL = 'https://api.apiwap.com/api/v1'
 
-@login_required
+def send_whatsapp_message(phone_number, message, event_title):
+    """
+    Send a WhatsApp message using the provided API.
+
+    Parameters:
+    api_key (str): The API key for authorization.
+    phone_number (str): The recipient's phone number in international format (e.g., +254712345678).
+    message (str): The message to send.
+    
+    Returns:
+    dict: The response from the API.
+    """
+    api_key = os.environ.get('API_WAP_KEY')
+    # Define the endpoint URL
+    url = f"{API_WAP_BASE_URL}/whatsapp/send-message"
+
+    # Define the headers
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json"
+    }
+
+    # Define the request payload
+    payload = {
+        "phoneNumber": phone_number,
+        "message": message,
+        "type": "media",
+        "media_type": "image",
+        "fileName": f"{event_title}.jpeg",
+        "mediaUrl": "https://thumbs2.imgbox.com/98/22/nqdfXUJi_t.jpeg"
+    }
+
+    try:
+        # Make the POST request
+        response = requests.post(url, headers=headers, json=payload)
+
+        # Check if the request was successful
+        response.raise_for_status()
+
+        # Return the JSON response
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        # Print any error that occurs
+        print(f"An error occurred: {e}")
+        return None
+
+@login_required(login_url='/users/login')
 def booking_list(request):
     user = request.user
     bookings = Booking.objects.filter(user=user.id).annotate(event_created_at=F('created_at')
@@ -60,6 +108,11 @@ def book_event(request, pk):
                 'success_message': "An M-pesa STK push has been inititated on your phone, please complete the transaction..."
             }
             if response.status_code == 200:
+                message = f"Hi, {user.username},\nYour reservation for {event.title} have been received and we have initiated payment, kindly complete it.\nThank you.\n\n By Kampus iParty."
+                formatted_phone_number = f"+254{booking.user.phone_number[1:]}"
+                response = send_whatsapp_message(
+                    formatted_phone_number, message, event.title)
+                print(response)
                 return render(request, 'event_details.html', context)
             
     return redirect('app:user_dashboard')

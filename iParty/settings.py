@@ -11,6 +11,7 @@ MPESA_PASS_KEY = config('MPESA_PASS_KEY')
 MPESA_BUSINESS_SHORT_CODE = config('MPESA_BUSINESS_SHORT_CODE')
 MPESA_TILL_NO = config('MPESA_TILL_NO')
 SERVER_URL = config('SERVER_URL')
+API_WAP_KEY = config('API_WAP_KEY')
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
